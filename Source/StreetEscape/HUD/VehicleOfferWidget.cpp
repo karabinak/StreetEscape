@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ // Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "VehicleOfferWidget.h"
@@ -18,10 +18,8 @@ void UVehicleOfferWidget::OnSelectButtonClicked()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Clicked"));
 
-	if (Vehicle && Hideout)
-	{
-		Hideout->SpawnVehicle(Vehicle);
-	}
+	OnVehicleOfferClickedDelegate.Broadcast(Vehicle);
+
 }
 
 void UVehicleOfferWidget::SetProperties(FText InVehicleName)

@@ -2,9 +2,13 @@
 
 
 #include "ShopVehicle.h"
-#include "StreetEscape/HUD/HUDManager.h"
+#include "StreetEscape/Vehicle/Vehicle.h"
+#include "Kismet/GameplayStatics.h"
+//#include "StreetEscape/HUD/HUDManager.h"
+#include "Blueprint/UserWidget.h"
 #include "StreetEscape/HUD/ShopWidget.h"
-#include "StreetEscape/Hideout/Hideout.h"
+#include "Inventory.h"
+
 
 UShopVehicle::UShopVehicle()
 {
@@ -12,43 +16,50 @@ UShopVehicle::UShopVehicle()
 
 }
 
-
-void UShopVehicle::Initialize(AHUDManager* HUD)
+void UShopVehicle::BeginPlay()
 {
-    UE_LOG(LogTemp, Warning, TEXT("Shop"));
+	Super::BeginPlay();
 
-    HUD->CreateShopWidget();
+    if (ShopWidgetClass)
+    {
+        ShopWidget = CreateWidget<UShopWidget>(GetWorld(), ShopWidgetClass);
+        ShopWidget->AddToViewport();
+        ShopWidget->SetOwner(this);
+    }
+
 
     if (!AvailableVehicles.IsEmpty())
     {
         for (TSubclassOf<AVehicle>& Vehicle : AvailableVehicles)
         {
-            UE_LOG(LogTemp, Warning, TEXT("Veh"));
-            FCatalogSlot CatalogSlot;
+            FVehicleOffer CatalogSlot;
             CatalogSlot.Vehicle = Vehicle;
-            CatalogSlot.CatalogWidget = HUD->GetShopWidget()->CreateCatalogWidget(Vehicle, Hideout);
+            CatalogSlot.CatalogWidget = ShopWidget->CreateCatalogWidget(Vehicle);
             VehicleCatalog.Add(CatalogSlot);
         }
+        SpawnVehicle(AvailableVehicles[0]);
     }
     else
     {
         UE_LOG(LogTemp, Warning, TEXT("Empty"));
     }
-
-   
 }
 
-//void UShopVehicle::BeginPlay()
-//{
-//	Super::BeginPlay();
-//
-//	
-//}
-//
-//
-//void UShopVehicle::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-//{
-//	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-//
-//
-//}
+void UShopVehicle::SpawnVehicle(TSubclassOf<AVehicle> VehicleToSpawn)
+{
+    if (CurrentVehicle)
+    {
+        CurrentVehicle->Destroy();
+    }
+    if (MeshToAttach)
+    {
+        FActorSpawnParameters SpawnParameters;
+        CurrentVehicle = GetWorld()->SpawnActor<AVehicle>(VehicleToSpawn, MeshToAttach->GetComponentLocation(), MeshToAttach->GetComponentRotation(), SpawnParameters);
+        CurrentVehicle->GetMesh()->SetSimulatePhysics(false);
+        CurrentVehicle->AttachToComponent(MeshToAttach, FAttachmentTransformRules::KeepRelativeTransform);
+    }
+    else
+    {
+        UE_LOG(LogTemp, Warning, TEXT("NoMesh"));
+    }
+}

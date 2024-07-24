@@ -5,8 +5,10 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "StreetEscape/Controller/VehicleController.h"
 #include "Kismet/GameplayStatics.h"
+#include "Blueprint/UserWidget.h"
 #include "StreetEscape/Vehicle/Vehicle.h"
 #include "StreetEscape/HUD/HUDManager.h"
+#include "StreetEscape/HUD/MenuWidget.h"
 #include "StreetEscape/Components/ShopVehicle.h"
 #include "StreetEscape/Components/CustomizationVehicle.h"
 
@@ -31,39 +33,29 @@ AHideout::AHideout()
 
 void AHideout::BeginPlay()
 {
+	ShopVehicle->SetMeshToAttach(VehicleStand);
+
 	Super::BeginPlay();
 
-	ShopVehicle->SetHideout(this);
-	
+	if (MenuWidgetClass)
+	{
+		MenuWidget = CreateWidget<UMenuWidget>(GetWorld(), MenuWidgetClass);
+		MenuWidget->AddToViewport();
+		MenuWidget->SetHideout(this);
+	}
+
 	PC = Cast<AVehicleController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
 	HUD = Cast<AHUDManager>(PC->GetHUD());
 
 	if (PC)
 	{
 		PC->SetViewTarget(this);
-		if (HUD)
-		{
-			HUD->SetHideout(this);
-			HUD->CreateMenuWidget(this);
-		}
 	}
-}
-
-void AHideout::SpawnVehicle(TSubclassOf<AVehicle> VehicleToSpawn)
-{
-	if (CurrentVehicle)
-	{
-		CurrentVehicle->Destroy();
-	}
-	FActorSpawnParameters SpawnParameters;
-	CurrentVehicle = GetWorld()->SpawnActor<AVehicle>(VehicleToSpawn, VehicleStand->GetComponentLocation(), VehicleStand->GetComponentRotation(), SpawnParameters);
-	CurrentVehicle->GetMesh()->SetSimulatePhysics(false);
-	CurrentVehicle->AttachToComponent(VehicleStand, FAttachmentTransformRules::KeepRelativeTransform);
 }
 
 void AHideout::InitializeWidgets()
 {
-	ShopVehicle->Initialize(HUD);
+	//ShopVehicle->Initialize(HUD);
 	//CustomizationVehicle->Initialize();
 }
 
@@ -75,17 +67,15 @@ void AHideout::Tick(float DeltaTime)
 
 void AHideout::SetLevel()
 {
-	if (CurrentVehicle && PC)
+	if (ShopVehicle->GetCurrentVehicle() && PC)
 	{
-		CurrentVehicle->GetMesh()->SetSimulatePhysics(true);
-		CurrentVehicle->DetachFromActor(FDetachmentTransformRules::KeepRelativeTransform);
+		ShopVehicle->GetCurrentVehicle()->GetMesh()->SetSimulatePhysics(true);
+		ShopVehicle->GetCurrentVehicle()->DetachFromActor(FDetachmentTransformRules::KeepRelativeTransform);
 		FViewTargetTransitionParams ViewTargetTransitionParams;
 		ViewTargetTransitionParams.BlendTime = 1.5f;
-		PC->SetViewTarget(CurrentVehicle, ViewTargetTransitionParams);
+		PC->SetViewTarget(ShopVehicle->GetCurrentVehicle(), ViewTargetTransitionParams);
 		PC->SetShowMouseCursor(false);
-		PC->Possess(CurrentVehicle);
-
-		HUD->SetupWidgets(EWidgetState::EWS_Gameplay);
+		PC->Possess(ShopVehicle->GetCurrentVehicle());
 	}
 }
 

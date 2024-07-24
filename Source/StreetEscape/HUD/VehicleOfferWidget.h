@@ -11,6 +11,8 @@ class UTextBlock;
 class AHideout;
 class AVehicle;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnVehicleOfferClickedSignature, TSubclassOf<AVehicle>, Vehicle);
+
 USTRUCT(BlueprintType)
 struct FCatalogInfo
 {
@@ -24,6 +26,12 @@ UCLASS()
 class STREETESCAPE_API UVehicleOfferWidget : public UUserWidget
 {
 	GENERATED_BODY()
+
+public:
+	UPROPERTY()
+	FOnVehicleOfferClickedSignature OnVehicleOfferClickedDelegate;
+
+
 protected:
 
 	virtual void NativeConstruct();

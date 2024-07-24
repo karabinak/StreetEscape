@@ -9,11 +9,11 @@
 class USpringArmComponent;
 class UCameraComponent;
 class AVehicle;
+class AHUDManager;
+class AVehicleController;
 class UMenuWidget;
 class UShopVehicle;
 class UCustomizationVehicle;
-class AHUDManager;
-class AVehicleController;
 
 UCLASS()
 class STREETESCAPE_API AHideout : public AActor
@@ -29,8 +29,6 @@ public:
 
 	void InitializeWidgets();
 
-	void SpawnVehicle(TSubclassOf<AVehicle> VehicleToSpawn);
-
 protected:
 	virtual void BeginPlay() override;
 
@@ -44,11 +42,10 @@ private:
 	UCustomizationVehicle* CustomizationVehicle;
 
 	UPROPERTY()
+
 	AHUDManager* HUD;
 	UPROPERTY()
 	AVehicleController* PC;
-	UPROPERTY(EditAnywhere)
-	AVehicle* CurrentVehicle;
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties", meta = (AllowPrivateAccess = "true"))
@@ -63,11 +60,16 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* Camera;
 
-	// Widgets
-	//UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Widgets", meta = (AllowPrivateAccess = "true"))
-	//UMenuWidget* MenuWidget;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets", meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<UUserWidget> MenuWidgetClass;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Widgets", meta = (AllowPrivateAccess = "true"))
+	UMenuWidget* MenuWidget;
+
 
 public:	
+
+	
 	
 
 };

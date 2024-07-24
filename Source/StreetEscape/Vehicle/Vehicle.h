@@ -29,7 +29,7 @@ protected:
 private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
-	FText VehicleName = FText::FromName(TEXT("SubUwU"));
+	FText VehicleName = FText::FromName(TEXT("Vehicle1"));
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	USpringArmComponent* SpringArm;

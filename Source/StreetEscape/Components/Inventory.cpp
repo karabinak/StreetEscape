@@ -27,3 +27,9 @@ void UInventory::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompo
 
 }
 
+void UInventory::AddToInventory(TSubclassOf<AVehicle> InVehicle)
+{
+	InventorySlots.Add(InVehicle);
+	UE_LOG(LogTemp, Warning, TEXT("Vehicle Added"));
+}
+

@@ -9,6 +9,8 @@
 
 class UInputMappingContext;
 class UInputAction;
+class UInventory;
+class AVehicle;
 
 UCLASS()
 class STREETESCAPE_API AVehicleController : public APlayerController
@@ -45,8 +47,15 @@ protected:
 
 private:
 
+	UPROPERTY(EditAnywhere)
+	UInventory* InventoryComponent;
+
+	UPROPERTY(VisibleAnywhere)
+	AVehicle* Vehicle;
 
 public:
+
+	FORCEINLINE UInventory* GetInventoryComponent() { return InventoryComponent; }
 
 
 

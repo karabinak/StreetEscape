@@ -5,10 +5,11 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "StreetEscape/Vehicle/Vehicle.h"
+#include "StreetEscape/Components/Inventory.h"
 
 AVehicleController::AVehicleController()
 {
-
+	InventoryComponent = CreateDefaultSubobject<UInventory>(TEXT("InventoryComponent"));
 }
 
 void AVehicleController::BeginPlay()
@@ -40,8 +41,10 @@ void AVehicleController::SetupInputComponent()
 
 void AVehicleController::OnThrottleTriggered(const FInputActionValue& Value)
 {
-	AVehicle* Vehicle = Cast<AVehicle>(GetPawn());
-	if (!Vehicle) return;
+	if (!Vehicle)
+	{
+		Vehicle = Cast<AVehicle>(GetPawn());
+	}
 
 	const float ThrottleValue = Value.Get<float>();
 	Vehicle->Throttle(ThrottleValue);
@@ -49,8 +52,10 @@ void AVehicleController::OnThrottleTriggered(const FInputActionValue& Value)
 
 void AVehicleController::OnSteerTriggered(const FInputActionValue& Value)
 {
-	AVehicle* Vehicle = Cast<AVehicle>(GetPawn());
-	if (!Vehicle) return;
+	if (!Vehicle)
+	{
+		Vehicle = Cast<AVehicle>(GetPawn());
+	}
 
 	const float SteerValue = Value.Get<float>();
 	Vehicle->Steer(SteerValue);
@@ -58,8 +63,10 @@ void AVehicleController::OnSteerTriggered(const FInputActionValue& Value)
 
 void AVehicleController::OnBrakeTriggered(const FInputActionValue& Value)
 {
-	AVehicle* Vehicle = Cast<AVehicle>(GetPawn());
-	if (!Vehicle) return;
+	if (!Vehicle)
+	{
+		Vehicle = Cast<AVehicle>(GetPawn());
+	}
 
 	const float BrakeValue = Value.Get<float>();
 	Vehicle->Brake(BrakeValue);
@@ -67,24 +74,30 @@ void AVehicleController::OnBrakeTriggered(const FInputActionValue& Value)
 
 void AVehicleController::OnThrottleReleased()
 {
-	AVehicle* Vehicle = Cast<AVehicle>(GetPawn());
-	if (!Vehicle) return;
+	if (!Vehicle)
+	{
+		Vehicle = Cast<AVehicle>(GetPawn());
+	}
 
 	Vehicle->Throttle(0.f);
 }
 
 void AVehicleController::OnSteerReleased()
 {
-	AVehicle* Vehicle = Cast<AVehicle>(GetPawn());
-	if (!Vehicle) return;
+	if (!Vehicle)
+	{
+		Vehicle = Cast<AVehicle>(GetPawn());
+	}
 
 	Vehicle->Steer(0.f);
 }
 
 void AVehicleController::OnBrakeReleased()
 {
-	AVehicle* Vehicle = Cast<AVehicle>(GetPawn());
-	if (!Vehicle) return;
+	if (!Vehicle)
+	{
+		Vehicle = Cast<AVehicle>(GetPawn());
+	}
 
 	Vehicle->Brake(0.f);
 }

@@ -27,15 +27,15 @@ class STREETESCAPE_API AHUDManager : public AHUD
 
 public:
 
-	void CreateMenuWidget(AHideout* InHideout);
-	void CreateShopWidget();
+	//void CreateMenuWidget(AHideout* InHideout);
+	//void CreateShopWidget();
 
-	void SetupWidgets(EWidgetState InWidgetState);
+	//void SetupWidgets(EWidgetState InWidgetState);
 
-	void ActiveGameplayWidgets();
-	void ActiveHideoutWidgets();
-	void DeactiveGameplayWidgets();
-	void DeactiveHideoutWidgets();
+	//void ActiveGameplayWidgets();
+	//void ActiveHideoutWidgets();
+	//void DeactiveGameplayWidgets();
+	//void DeactiveHideoutWidgets();
 
 protected:
 	virtual void BeginPlay() override;
@@ -61,8 +61,8 @@ private:
 
 public:
 
-	FORCEINLINE void SetHideout(AHideout* InHideout) { Hideout = InHideout; }
-	FORCEINLINE UShopWidget* GetShopWidget() { return ShopWidget; }
+	//FORCEINLINE void SetHideout(AHideout* InHideout) { Hideout = InHideout; }
+	//FORCEINLINE UShopWidget* GetShopWidget() { return ShopWidget; }
 
 
 

@@ -11,15 +11,22 @@ class UCanvasPanel;
 class UVehicleOfferWidget;
 class UScrollBox;
 class AHideout;
+class UShopVehicle;
 
 UCLASS()
 class STREETESCAPE_API UShopWidget : public UUserWidget
 {
 	GENERATED_BODY()
 
+public:
+	UFUNCTION()
+	UVehicleOfferWidget* CreateCatalogWidget(TSubclassOf<AVehicle> InVehicle);
+
 protected:
 	virtual void NativeConstruct() override;
 
+	UFUNCTION()
+	void OnVehicleOfferClicked(TSubclassOf<AVehicle> Vehicle);
 
 private:
 	UPROPERTY(meta = (BindWidget))
@@ -34,7 +41,13 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Widgets", meta = (AllowPrivateAccess = "true"))
 	TArray<UVehicleOfferWidget*> VehicleCatalogWidgets;
 
+	UPROPERTY(VisibleAnywhere)
+	UShopVehicle* Owner;
+
+
+
 public:
 
-	UVehicleOfferWidget* CreateCatalogWidget(TSubclassOf<AVehicle> InVehicle, AHideout* InHideout);
+
+	FORCEINLINE void SetOwner(UShopVehicle* InOwner) { Owner = InOwner; }
 };
