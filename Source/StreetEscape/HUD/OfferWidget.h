@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "StreetEscape/Data/OfferData.h"
 #include "OfferWidget.generated.h"
 
 class UButton;
@@ -11,25 +12,19 @@ class UTextBlock;
 class AHideout;
 class AVehicle;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnVehicleOfferClickedSignature, TSubclassOf<AVehicle>, Vehicle);
+DECLARE_DELEGATE_OneParam(FOnVehicleOfferClickedSignature, TSubclassOf<AVehicle> /*Vehicle*/);
+DECLARE_DELEGATE_OneParam(FOnWheelOfferClickedSignature, FWheelOffer /*WheelOffer*/);
 
-USTRUCT(BlueprintType)
-struct FCatalogInfo
-{
-	GENERATED_BODY()
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FName VehicleName = FName(TEXT("DefaultVehicle"));
-};
 
 UCLASS()
-class STREETESCAPE_API UVehicleOfferWidget : public UUserWidget
+class STREETESCAPE_API UOfferWidget : public UUserWidget
 {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY()
+
 	FOnVehicleOfferClickedSignature OnVehicleOfferClickedDelegate;
+	FOnWheelOfferClickedSignature OnWheelOfferClickedDelegate;
 
 
 protected:
@@ -50,13 +45,21 @@ private:
 
 	UPROPERTY()
 	AHideout* Hideout;
+	
+	UPROPERTY(VisibleAnywhere)
+	EOfferType OfferType;
 
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere)
 	TSubclassOf<AVehicle> Vehicle;
+
+	UPROPERTY(VisibleAnywhere)
+	FWheelOffer WheelOfferData;
 	
 public:
 
-	void SetProperties(FText InVehicleName);
-	FORCEINLINE void SetHideout(AHideout* InHieout) { Hideout = InHieout; }
+	FORCEINLINE void SetOfferType(EOfferType InOfferType) { OfferType = InOfferType; }
 	FORCEINLINE void SetVehicle(TSubclassOf<AVehicle> InVehicle) { Vehicle = InVehicle; }
+	void SetProperties(FText InVehicleName);
+	//FORCEINLINE void SetHideout(AHideout* InHieout) { Hideout = InHieout; }
+	//FORCEINLINE void SetVehicle(TSubclassOf<AVehicle> InVehicle) { Vehicle = InVehicle; }
 };

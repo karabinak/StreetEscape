@@ -4,12 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "StreetEscape/Data/OfferData.h"
 #include "Shop.generated.h"
+
+#define LOG_MISSINGCLASS(Message) UE_LOG(LogTemp, Warning, TEXT(Message))
 
 //class AHideout;
 //class AVehicle;
 //class UVehicleOfferWidget;
-//class AHUDManager;
+class AHUDManager;
 //class UShopWidget;
 //class UInventory;
 
@@ -37,6 +40,9 @@ public:
 
 	//void SpawnVehicle(TSubclassOf<AVehicle> VehicleToSpawn);
 
+	UFUNCTION()
+	void VehicleOfferClicked(TSubclassOf<AVehicle> Vehicle);
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -48,11 +54,11 @@ private:
 	//UPROPERTY(EditAnywhere)
 	//TArray<TSubclassOf<AVehicle>> AvailableVehicles;
 
-	//UPROPERTY(VisibleAnywhere)
-	//TArray<FVehicleOffer> VehicleCatalog;
+	UPROPERTY(VisibleAnywhere)
+	TArray<FVehicleOffer> VehicleCatalog;
 
-	//UPROPERTY(EditAnywhere)
-	//AVehicle* CurrentVehicle;
+	UPROPERTY(EditAnywhere)
+	AVehicle* CurrentVehicle;
 
 	//UPROPERTY(VisibleAnywhere)
 	//UStaticMeshComponent* MeshToAttach;
@@ -60,6 +66,9 @@ private:
 	//// Widget
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<UUserWidget> ShopWidgetClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets", meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<UUserWidget> OfferWidgetClass;
 
 	//UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Widgets", meta = (AllowPrivateAccess = "true"))
 	//UShopWidget* ShopWidget;

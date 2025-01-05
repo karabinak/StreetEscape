@@ -2,24 +2,46 @@
 
 #pragma once
 
-//#include "CoreMinimal.h"
-//#include "VehicleStructs.generated.h"
+#include "CoreMinimal.h"
+#include "OfferData.generated.h"
 
+class AVehicle;
 
-//USTRUCT(BlueprintType)
-//struct FOfferData
-//{
-//	GENERATED_BODY()
-//	
-//	UPROPERTY(EditAnywhere)
-//	UMaterial* BodyPaint;
-//};
-//
-//USTRUCT(BlueprintType)
-//struct FUpgrade
-//{
-//	GENERATED_BODY()
-//
-//	UPROPERTY(EditAnywhere)
-//	float MaxRPM;
-//};
+UENUM(BlueprintType)
+enum class EOfferType : uint8
+{
+	EOT_Vehicle UMETA(DisplayName = "Vehicle"),
+	EOT_Wheel UMETA(DisplayName = "Wheel"),
+
+	EOT_MAX UMETA(DisplayName = "Default")
+};
+
+USTRUCT(BlueprintType)
+struct FVehicleOffer
+{
+	GENERATED_BODY()
+	
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AVehicle> Vehicle;
+
+	UPROPERTY(EditAnywhere)
+	FText VehicleName;
+
+	UPROPERTY(VisibleAnywhere)
+	EOfferType OfferType = EOfferType::EOT_Vehicle;
+};
+
+USTRUCT(BlueprintType)
+struct FWheelOffer
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere)
+	UStaticMesh* WheelMesh;
+
+	UPROPERTY(EditAnywhere)
+	FText WheelName;
+
+	UPROPERTY(VisibleAnywhere)
+	EOfferType OfferType = EOfferType::EOT_Wheel;
+};

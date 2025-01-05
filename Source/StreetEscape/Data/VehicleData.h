@@ -2,24 +2,16 @@
 
 #pragma once
 
-//#include "CoreMinimal.h"
-//#include "VehicleStructs.generated.h"
+#include "CoreMinimal.h"
+#include "VehicleData.generated.h"
 
+//class UVehicle;
 
-//USTRUCT(BlueprintType)
-//struct FVehicleData
-//{
-//	GENERATED_BODY()
-//	
-//	UPROPERTY(EditAnywhere)
-//	UMaterial* BodyPaint;
-//};
-//
-//USTRUCT(BlueprintType)
-//struct FUpgrade
-//{
-//	GENERATED_BODY()
-//
-//	UPROPERTY(EditAnywhere)
-//	float MaxRPM;
-//};
+USTRUCT(BlueprintType)
+struct FVehicleData
+{
+	GENERATED_BODY()
+	
+	UPROPERTY(EditAnywhere)
+	UMaterial* BodyPaint;
+};

@@ -7,15 +7,20 @@
 #include "Components/ScrollBox.h"
 #include "Components/CanvasPanel.h"
 #include "Components/ScrollBoxSlot.h"
-#include "StreetEscape/Controller/VehicleController.h"
-#include "StreetEscape/Components/Inventory.h"
-#include "Kismet/GameplayStatics.h"
+//#include "StreetEscape/Controller/VehicleController.h"
+//#include "StreetEscape/Components/Inventory.h"
+//#include "Kismet/GameplayStatics.h"
 //#include "StreetEscape/Components/ShopVehicle.h"
 
 
 void UShopWidget::NativeConstruct()
 {
 	
+}
+
+void UShopWidget::AddOfferWidget(UOfferWidget* OfferToAdd)
+{
+	ScrollBox->AddChild(OfferToAdd);
 }
 
 //void UShopWidget::OnVehicleOfferClicked(TSubclassOf<AVehicle> Vehicle)

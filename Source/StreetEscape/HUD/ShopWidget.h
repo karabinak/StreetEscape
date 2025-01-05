@@ -11,7 +11,7 @@ class UScrollBox;
 
 class AVehicle;
 class UShop;
-class UVehicleOfferWidget;
+class UOfferWidget;
 
 UCLASS()
 class STREETESCAPE_API UShopWidget : public UUserWidget
@@ -19,8 +19,8 @@ class STREETESCAPE_API UShopWidget : public UUserWidget
 	GENERATED_BODY()
 
 public:
-	//UFUNCTION()
-	//UVehicleOfferWidget* CreateCatalogWidgets(TSubclassOf<AVehicle> InVehicle);
+
+	void AddOfferWidget(UOfferWidget* OfferToAdd);
 
 protected:
 	virtual void NativeConstruct() override;
@@ -35,17 +35,12 @@ private:
 	UPROPERTY(meta = (BindWidget))
 	UScrollBox* ScrollBox;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets", meta = (AllowPrivateAccess = "true"))
-	TSubclassOf<UUserWidget> VehicleCatalogClass;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Widgets", meta = (AllowPrivateAccess = "true"))
-	TArray<UVehicleOfferWidget*> VehicleCatalogWidgets;
-
-	UPROPERTY(VisibleAnywhere)
-	UShop* Owner;
+	//UPROPERTY(VisibleAnywhere)
+	//UShop* Owner;
 
 
 public:
 
-	FORCEINLINE void InitializeWidget(UShop* InOwner) { Owner = InOwner; }
+	
+	//FORCEINLINE void InitializeWidget(UShop* InOwner) { Owner = InOwner; }
 };
