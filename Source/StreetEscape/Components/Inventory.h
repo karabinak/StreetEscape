@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "StreetEscape/Vehicle/VehicleStructs.h"
+//#include "StreetEscape/Vehicle/VehicleStructs.h"
 #include "Inventory.generated.h"
 
 class AVehicle;

@@ -6,7 +6,7 @@
 
 #include "MenuWidget.h"
 #include "ShopWidget.h"
-#include "VehicleOfferWidget.h"
+#include "OfferWidget.h"
 
 void AHUDManager::BeginPlay()
 {

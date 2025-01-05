@@ -19,21 +19,21 @@ void UMenuWidget::OnPlayButtonClicked()
 {
 	UE_LOG(LogTemp, Warning, TEXT("ButtonClicked"));
 
-	FLatentActionInfo LatentAction;
-	UGameplayStatics::LoadStreamLevel(GetWorld(), FName(TEXT("Desert")), true, true, LatentAction);
+	//FLatentActionInfo LatentAction;
+	//UGameplayStatics::LoadStreamLevel(GetWorld(), FName(TEXT("Desert")), true, true, LatentAction);
 
-	if (Hideout)
-	{
-		Hideout->SetLevel();
-	}
+	//if (Hideout)
+	//{
+	//	Hideout->SetLevel();
+	//}
 }
 
 void UMenuWidget::OnShopButtonClicked()
 {
-	UE_LOG(LogTemp, Warning, TEXT("ShopClicked"));
+	//UE_LOG(LogTemp, Warning, TEXT("ShopClicked"));
 
-	if (Hideout)
-	{
-		Hideout->InitializeWidgets();
-	}
+	//if (Hideout)
+	//{
+	//	Hideout->InitializeWidgets();
+	//}
 }

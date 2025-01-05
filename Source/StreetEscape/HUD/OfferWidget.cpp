@@ -1,7 +1,7 @@
  // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "VehicleOfferWidget.h"
+#include "OfferWidget.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "StreetEscape/Hideout/Hideout.h"

@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "VehicleOfferWidget.generated.h"
+#include "OfferWidget.generated.h"
 
 class UButton;
 class UTextBlock;

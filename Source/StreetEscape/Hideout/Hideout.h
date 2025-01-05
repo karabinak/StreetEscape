@@ -8,12 +8,10 @@
 
 class USpringArmComponent;
 class UCameraComponent;
-class AVehicle;
-class AHUDManager;
+
 class AVehicleController;
-class UMenuWidget;
-class UShopVehicle;
-class UCustomizationVehicle;
+class UShop;
+class UCustomization;
 
 UCLASS()
 class STREETESCAPE_API AHideout : public AActor
@@ -23,11 +21,11 @@ class STREETESCAPE_API AHideout : public AActor
 public:	
 	AHideout();
 
-	virtual void Tick(float DeltaTime) override;
+	//virtual void Tick(float DeltaTime) override;
 
-	void SetLevel();
+	//void SetLevel();
 
-	void InitializeWidgets();
+	//void InitializeWidgets();
 
 protected:
 	virtual void BeginPlay() override;
@@ -37,13 +35,10 @@ protected:
 private:
 
 	UPROPERTY(EditAnywhere)
-	UShopVehicle* ShopVehicle;
+	UShop* Shop;
 	UPROPERTY(EditAnywhere)
-	UCustomizationVehicle* CustomizationVehicle;
+	UCustomization* Customization;
 
-	UPROPERTY()
-
-	AHUDManager* HUD;
 	UPROPERTY()
 	AVehicleController* PC;
 
@@ -59,12 +54,6 @@ private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* Camera;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets", meta = (AllowPrivateAccess = "true"))
-	TSubclassOf<UUserWidget> MenuWidgetClass;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Widgets", meta = (AllowPrivateAccess = "true"))
-	UMenuWidget* MenuWidget;
 
 
 public:	
