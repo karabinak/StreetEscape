@@ -6,6 +6,7 @@
 #include "OfferData.generated.h"
 
 class AVehicle;
+class UOfferWidget;
 
 UENUM(BlueprintType)
 enum class EOfferType : uint8
@@ -32,6 +33,9 @@ struct FVehicleOffer
 
 	UPROPERTY(VisibleAnywhere)
 	bool VehicleOwned;
+
+	UPROPERTY(VisibleAnywhere)
+	UOfferWidget* OfferWidget;
 
 	UPROPERTY(VisibleAnywhere)
 	EOfferType OfferType = EOfferType::EOT_Vehicle;

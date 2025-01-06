@@ -26,13 +26,15 @@ public:
 
 	void UpdatePriceText(FText Price);
 
+	void OnVehicleOwnedChanged(bool IsPlayerOwningVehicle);
+
 protected:
 	virtual void NativeConstruct() override;
 
 	UFUNCTION()
 	void OnPlayButtonClicked();
 	UFUNCTION()
-	void OnCustomizationButtonClicled();
+	void OnCustomizationButtonClicked();
 	UFUNCTION()
 	void OnBuyButtonClicked();
 

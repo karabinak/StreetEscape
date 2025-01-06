@@ -19,8 +19,11 @@
 void UShopWidget::NativeConstruct()
 {
 	PlayButton->OnClicked.AddDynamic(this, &UShopWidget::OnPlayButtonClicked);
-	CustomizationButton->OnClicked.AddDynamic(this, &UShopWidget::OnCustomizationButtonClicled);
+	CustomizationButton->OnClicked.AddDynamic(this, &UShopWidget::OnCustomizationButtonClicked);
 	BuyButton->OnClicked.AddDynamic(this, &UShopWidget::OnBuyButtonClicked);
+
+	PlayButton->SetVisibility(ESlateVisibility::Collapsed);
+	CustomizationButton->SetVisibility(ESlateVisibility::Collapsed);
 }
 
 void UShopWidget::OnPlayButtonClicked()
@@ -28,7 +31,7 @@ void UShopWidget::OnPlayButtonClicked()
 
 }
 
-void UShopWidget::OnCustomizationButtonClicled()
+void UShopWidget::OnCustomizationButtonClicked()
 {
 
 }
@@ -41,6 +44,22 @@ void UShopWidget::OnBuyButtonClicked()
 void UShopWidget::UpdatePriceText(FText Price)
 {
 	VehiclePriceText->SetText(Price);
+}
+
+void UShopWidget::OnVehicleOwnedChanged(bool IsPlayerOwningVehicle)
+{
+	if (IsPlayerOwningVehicle)
+	{
+		BuyButton->SetVisibility(ESlateVisibility::Collapsed);
+		PlayButton->SetVisibility(ESlateVisibility::Visible);
+		CustomizationButton->SetVisibility(ESlateVisibility::Visible);
+	}
+	else
+	{
+		BuyButton->SetVisibility(ESlateVisibility::Visible);
+		PlayButton->SetVisibility(ESlateVisibility::Collapsed);
+		CustomizationButton->SetVisibility(ESlateVisibility::Collapsed);
+	}
 }
 
 void UShopWidget::AddOfferWidget(UOfferWidget* OfferToAdd)

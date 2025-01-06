@@ -13,11 +13,20 @@ void UOfferWidget::NativeConstruct()
 	Super::NativeConstruct();
 
 	SelectButton->OnClicked.AddDynamic(this, &UOfferWidget::OnSelectButtonClicked);
+	VehiclePriceText->SetVisibility(ESlateVisibility::HitTestInvisible);
+}
+
+void UOfferWidget::SetupWidget(FVehicleOffer InVehicleOfferData)
+{
+	VehicleOfferData = InVehicleOfferData;
+	VehicleOfferData.OfferWidget = this;
+	SetPadding(FMargin::FMargin(FVector2d(37.33f, 37.33f)));
+	UpdateProperties();
 }
 
 void UOfferWidget::OnSelectButtonClicked()
 {
-	switch (OfferType)
+	switch (VehicleOfferData.OfferType)
 	{
 	case EOfferType::EOT_Vehicle:
 
@@ -41,14 +50,16 @@ void UOfferWidget::OnSelectButtonClicked()
 
 }
 
-void UOfferWidget::SetProperties(FText InVehicleName)
+void UOfferWidget::UpdateProperties()
 {
-	if (OfferOwned)
+	if (VehicleOfferData.VehicleOwned)
 	{
 		VehiclePriceText->SetText(FText::FromString("OWNED"));
+		UE_LOG(LogTemp, Warning, TEXT("Owned"));
 	}
 	else
 	{
-		VehiclePriceText->SetText(InVehicleName);
+		UE_LOG(LogTemp, Warning, TEXT("NotOwned"));
+		VehiclePriceText->SetText(FText::FromString(FString::FromInt(VehicleOfferData.VehiclePrice)));
 	}
 }

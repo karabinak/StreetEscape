@@ -26,11 +26,13 @@ public:
 	FOnVehicleOfferClickedSignature OnVehicleOfferClickedDelegate;
 	FOnWheelOfferClickedSignature OnWheelOfferClickedDelegate;
 
+	void SetupWidget(FVehicleOffer InVehicleOfferData);
+
+	void UpdateProperties();
 
 protected:
 
 	virtual void NativeConstruct();
-
 
 	UFUNCTION()
 	void OnSelectButtonClicked();
@@ -43,14 +45,14 @@ private:
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* VehiclePriceText;
 
-	UPROPERTY(VisibleAnywhere)
-	EOfferType OfferType;
+	//UPROPERTY(VisibleAnywhere)
+	//EOfferType OfferType;
 
-	UPROPERTY(VisibleAnywhere)
-	TSubclassOf<AVehicle> Vehicle;
+	//UPROPERTY(VisibleAnywhere)
+	//TSubclassOf<AVehicle> Vehicle;
 
-	UPROPERTY(VisibleAnywhere)
-	bool OfferOwned = false;
+	//UPROPERTY(VisibleAnywhere)
+	//bool OfferOwned = false;
 
 	UPROPERTY(VisibleAnywhere)
 	FVehicleOffer VehicleOfferData;
@@ -63,9 +65,9 @@ private:
 	
 public:
 
-	FORCEINLINE void SetOfferType(EOfferType InOfferType) { OfferType = InOfferType; }
-	FORCEINLINE void SetVehicle(TSubclassOf<AVehicle> InVehicle) { Vehicle = InVehicle; }
-	FORCEINLINE void SetOfferOwned(bool InOfferOwned) { OfferOwned = InOfferOwned; }
-	FORCEINLINE void SetVehicleOffer(FVehicleOffer InVehicleOfferData) { VehicleOfferData = InVehicleOfferData; }
-	void SetProperties(FText InVehicleName);
+	//FORCEINLINE void SetOfferType(EOfferType InOfferType) { OfferType = InOfferType; }
+	//FORCEINLINE void SetVehicle(TSubclassOf<AVehicle> InVehicle) { Vehicle = InVehicle; }
+	//FORCEINLINE void SetOfferOwned(bool InOfferOwned) { OfferOwned = InOfferOwned; }
+	FORCEINLINE void SetOfferOwned(bool OfferOwned) { VehicleOfferData.VehicleOwned = OfferOwned; }
+	
 };

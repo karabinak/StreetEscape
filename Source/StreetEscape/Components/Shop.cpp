@@ -46,12 +46,12 @@ void UShop::BeginPlay()
         APlayerController* PC = UGameplayStatics::GetPlayerController(this, 0);
         UOfferWidget* OfferWidget = CreateWidget<UOfferWidget>(GetWorld(), OfferWidgetClass);
         OfferWidget->OnVehicleOfferClickedDelegate.BindUObject(this, &UShop::OnVehicleOfferClicked);
-        OfferWidget->SetPadding(FMargin::FMargin(FVector2d(37.33f, 37.33f)));
-        OfferWidget->SetOfferType(EOfferType::EOT_Vehicle);
-        OfferWidget->SetVehicle(ShopOffer.Vehicle);
-        OfferWidget->SetOfferOwned(PlayerController->GetInventoryComponent()->IsInInventory(CurrentVehicleClass));
-        OfferWidget->SetVehicleOffer(ShopOffer);
-        OfferWidget->SetProperties(FText::FromString(FString::FromInt(ShopOffer.VehiclePrice)));
+
+        if (PlayerController->GetInventoryComponent()->IsInInventory(CurrentVehicleClass))
+        {
+            ShopOffer.VehicleOwned = true;
+        }
+        OfferWidget->SetupWidget(ShopOffer);
 
         if (ShopWidget)
         {
@@ -77,6 +77,7 @@ void UShop::OnVehicleOfferClicked(FVehicleOffer VehicleOfferData)
         CurrentVehicle->AddActorLocalOffset(FVector(0.f, 0.f, 20.f));
 
         CurrentVehicleClass = VehicleOfferData.Vehicle;
+        ActiveVehicleOffer = VehicleOfferData.OfferWidget;
     }
     else
     {
@@ -89,19 +90,22 @@ void UShop::OnVehicleOfferClicked(FVehicleOffer VehicleOfferData)
     if (PlayerController->GetInventoryComponent()->IsInInventory(CurrentVehicleClass))
     {
         HUDManager->GetShopWidget()->UpdatePriceText(FText::FromString("OWNED"));
-        UE_LOG(LogTemp, Warning, TEXT("OWNED"));
+        HUDManager->GetShopWidget()->OnVehicleOwnedChanged(true);
     }
     else
     {
         HUDManager->GetShopWidget()->UpdatePriceText(FText::FromString(FString::FromInt(VehicleOfferData.VehiclePrice)));
-        UE_LOG(LogTemp, Warning, TEXT("NOTOWNED"));
+        HUDManager->GetShopWidget()->OnVehicleOwnedChanged(false);
     }
+    
 
     CurrentVehiclePrice = VehicleOfferData.VehiclePrice;
 }
 
 void UShop::OnBuyButtonPressed()
 {
+    if (CurrentVehicleClass == nullptr) return;
+
     AVehicleController* PlayerController = Cast<AVehicleController>(UGameplayStatics::GetPlayerController(this, 0));
     AHUDManager* HUDManager = Cast<AHUDManager>(PlayerController->GetHUD());
     UInventory* Inventory = PlayerController->GetInventoryComponent();
@@ -112,6 +116,13 @@ void UShop::OnBuyButtonPressed()
             Inventory->AddToInventory(CurrentVehicleClass);
             PlayerController->SubtractPlayerCurrency(CurrentVehiclePrice);
             HUDManager->GetShopWidget()->UpdatePriceText(FText::FromString("OWNED"));
+            HUDManager->GetShopWidget()->OnVehicleOwnedChanged(true);
+
+            if (ActiveVehicleOffer)
+            {
+                ActiveVehicleOffer->SetOfferOwned(true);
+                ActiveVehicleOffer->UpdateProperties();
+            }
         }
     }
 }

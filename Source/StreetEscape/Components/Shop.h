@@ -13,7 +13,7 @@
 //class AVehicle;
 //class UVehicleOfferWidget;
 class AHUDManager;
-//class UShopWidget;
+class UOfferWidget;
 //class UInventory;
 
 //USTRUCT(BlueprintType)
@@ -69,6 +69,9 @@ private:
 
 	UPROPERTY()
 	int32 CurrentVehiclePrice;
+
+	UPROPERTY()
+	UOfferWidget* ActiveVehicleOffer = nullptr;
 
 	//UPROPERTY(VisibleAnywhere)
 	//UStaticMeshComponent* MeshToAttach;
