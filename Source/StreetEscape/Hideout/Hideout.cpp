@@ -43,7 +43,7 @@ void AHideout::BeginPlay()
 	if (PC)
 	{
 		// SET THIS ON RELEASE
-		//PC->SetViewTarget(this);
+		PC->SetViewTarget(this);
 	}
 
 	//ShopVehicle->SetMeshToAttach(VehicleStand);

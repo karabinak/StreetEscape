@@ -27,6 +27,12 @@ struct FVehicleOffer
 	UPROPERTY(EditAnywhere)
 	FText VehicleName;
 
+	UPROPERTY(EditAnywhere)
+	int32 VehiclePrice;
+
+	UPROPERTY(VisibleAnywhere)
+	bool VehicleOwned;
+
 	UPROPERTY(VisibleAnywhere)
 	EOfferType OfferType = EOfferType::EOT_Vehicle;
 };

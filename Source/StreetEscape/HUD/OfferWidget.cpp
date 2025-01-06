@@ -17,15 +17,11 @@ void UOfferWidget::NativeConstruct()
 
 void UOfferWidget::OnSelectButtonClicked()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Clicked"));
-
-	
 	switch (OfferType)
 	{
 	case EOfferType::EOT_Vehicle:
 
-		OnVehicleOfferClickedDelegate.Execute(Vehicle);
-		UE_LOG(LogTemp, Warning, TEXT("VehicleOfferDelegateWorks"));
+		OnVehicleOfferClickedDelegate.Execute(VehicleOfferData);
 		break;
 
 	case EOfferType::EOT_Wheel:
@@ -47,5 +43,12 @@ void UOfferWidget::OnSelectButtonClicked()
 
 void UOfferWidget::SetProperties(FText InVehicleName)
 {
-	VehicleNameText->SetText(InVehicleName);
+	if (OfferOwned)
+	{
+		VehiclePriceText->SetText(FText::FromString("OWNED"));
+	}
+	else
+	{
+		VehiclePriceText->SetText(InVehicleName);
+	}
 }

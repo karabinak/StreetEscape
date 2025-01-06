@@ -41,63 +41,75 @@ void AVehicleController::SetupInputComponent()
 
 void AVehicleController::OnThrottleTriggered(const FInputActionValue& Value)
 {
-	if (!Vehicle)
+	if (Vehicle)
+	{
+		const float ThrottleValue = Value.Get<float>();
+		Vehicle->Throttle(ThrottleValue);
+	}
+	else
 	{
 		Vehicle = Cast<AVehicle>(GetPawn());
 	}
-
-	const float ThrottleValue = Value.Get<float>();
-	Vehicle->Throttle(ThrottleValue);
 }
 
 void AVehicleController::OnSteerTriggered(const FInputActionValue& Value)
 {
-	if (!Vehicle)
+	if (Vehicle)
+	{
+		const float SteerValue = Value.Get<float>();
+		Vehicle->Steer(SteerValue);
+	}
+	else
 	{
 		Vehicle = Cast<AVehicle>(GetPawn());
 	}
-
-	const float SteerValue = Value.Get<float>();
-	Vehicle->Steer(SteerValue);
 }
 
 void AVehicleController::OnBrakeTriggered(const FInputActionValue& Value)
 {
-	if (!Vehicle)
+	if (Vehicle)
+	{
+		const float BrakeValue = Value.Get<float>();
+		Vehicle->Brake(BrakeValue);
+	}
+	else
 	{
 		Vehicle = Cast<AVehicle>(GetPawn());
 	}
-
-	const float BrakeValue = Value.Get<float>();
-	Vehicle->Brake(BrakeValue);
 }
 
 void AVehicleController::OnThrottleReleased()
 {
-	if (!Vehicle)
+	if (Vehicle)
+	{
+		Vehicle->Throttle(0.f);
+	}
+	else
 	{
 		Vehicle = Cast<AVehicle>(GetPawn());
 	}
-
-	Vehicle->Throttle(0.f);
 }
 
 void AVehicleController::OnSteerReleased()
 {
-	if (!Vehicle)
+	if (Vehicle)
+	{
+		Vehicle->Steer(0.f);
+	}
+	else
 	{
 		Vehicle = Cast<AVehicle>(GetPawn());
 	}
-
-	Vehicle->Steer(0.f);
 }
 
 void AVehicleController::OnBrakeReleased()
 {
-	if (!Vehicle)
+	if (Vehicle)
+	{
+		Vehicle->Brake(0.f);
+	}
+	else
 	{
 		Vehicle = Cast<AVehicle>(GetPawn());
 	}
-
-	Vehicle->Brake(0.f);
 }

@@ -53,9 +53,15 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	AVehicle* Vehicle;
 
+	UPROPERTY(EditAnywhere)
+	int32 PlayerCurrency = 10000;
+
 public:
 
 	FORCEINLINE UInventory* GetInventoryComponent() { return InventoryComponent; }
+
+	FORCEINLINE int32 GetPlayerCurrency() { return PlayerCurrency; }
+	FORCEINLINE void SubtractPlayerCurrency(int32 CurrencyToSubstract) { PlayerCurrency -= CurrencyToSubstract; }
 
 
 

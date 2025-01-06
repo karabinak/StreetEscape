@@ -8,6 +8,8 @@
 
 class UCanvasPanel;
 class UScrollBox;
+class UButton;
+class UTextBlock;
 
 class AVehicle;
 class UShop;
@@ -22,8 +24,17 @@ public:
 
 	void AddOfferWidget(UOfferWidget* OfferToAdd);
 
+	void UpdatePriceText(FText Price);
+
 protected:
 	virtual void NativeConstruct() override;
+
+	UFUNCTION()
+	void OnPlayButtonClicked();
+	UFUNCTION()
+	void OnCustomizationButtonClicled();
+	UFUNCTION()
+	void OnBuyButtonClicked();
 
 	//UFUNCTION()
 	//void OnVehicleOfferClicked(TSubclassOf<AVehicle> Vehicle);
@@ -33,14 +44,25 @@ private:
 	UCanvasPanel* Canvas;
 
 	UPROPERTY(meta = (BindWidget))
+	UButton* PlayButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* BuyButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* CustomizationButton;
+
+	UPROPERTY(meta = (BindWidget))
 	UScrollBox* ScrollBox;
 
-	//UPROPERTY(VisibleAnywhere)
-	//UShop* Owner;
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* VehiclePriceText;
 
+	UPROPERTY(VisibleAnywhere)
+	UShop* OwnerClass;
 
 public:
 
+	FORCEINLINE void SetOwner(UShop* Owner) { OwnerClass = Owner; }
 	
-	//FORCEINLINE void InitializeWidget(UShop* InOwner) { Owner = InOwner; }
 };

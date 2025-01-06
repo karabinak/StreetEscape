@@ -28,9 +28,6 @@ protected:
 
 private:
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
-	FText VehicleName = FText::FromName(TEXT("Vehicle1"));
-
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	USpringArmComponent* SpringArm;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
@@ -43,6 +40,5 @@ private:
 	//FUpgrade Upgrade;
 
 public:
-	FORCEINLINE FText GetVehicleName() const { return VehicleName; }
 
 };

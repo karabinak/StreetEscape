@@ -12,7 +12,7 @@ class UTextBlock;
 class AHideout;
 class AVehicle;
 
-DECLARE_DELEGATE_OneParam(FOnVehicleOfferClickedSignature, TSubclassOf<AVehicle> /*Vehicle*/);
+DECLARE_DELEGATE_OneParam(FOnVehicleOfferClickedSignature, FVehicleOffer /*VehicleOffer*/);
 DECLARE_DELEGATE_OneParam(FOnWheelOfferClickedSignature, FWheelOffer /*WheelOffer*/);
 
 
@@ -41,11 +41,8 @@ private:
 	UButton* SelectButton;
 
 	UPROPERTY(meta = (BindWidget))
-	UTextBlock* VehicleNameText;
+	UTextBlock* VehiclePriceText;
 
-	UPROPERTY()
-	AHideout* Hideout;
-	
 	UPROPERTY(VisibleAnywhere)
 	EOfferType OfferType;
 
@@ -53,13 +50,22 @@ private:
 	TSubclassOf<AVehicle> Vehicle;
 
 	UPROPERTY(VisibleAnywhere)
+	bool OfferOwned = false;
+
+	UPROPERTY(VisibleAnywhere)
+	FVehicleOffer VehicleOfferData;
+
+	UPROPERTY(VisibleAnywhere)
 	FWheelOffer WheelOfferData;
+
+	//UPROPERTY(VisibleAnywhere)
+	//UObject* Owner;
 	
 public:
 
 	FORCEINLINE void SetOfferType(EOfferType InOfferType) { OfferType = InOfferType; }
 	FORCEINLINE void SetVehicle(TSubclassOf<AVehicle> InVehicle) { Vehicle = InVehicle; }
+	FORCEINLINE void SetOfferOwned(bool InOfferOwned) { OfferOwned = InOfferOwned; }
+	FORCEINLINE void SetVehicleOffer(FVehicleOffer InVehicleOfferData) { VehicleOfferData = InVehicleOfferData; }
 	void SetProperties(FText InVehicleName);
-	//FORCEINLINE void SetHideout(AHideout* InHieout) { Hideout = InHieout; }
-	//FORCEINLINE void SetVehicle(TSubclassOf<AVehicle> InVehicle) { Vehicle = InVehicle; }
 };

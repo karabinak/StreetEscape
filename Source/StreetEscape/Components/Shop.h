@@ -41,7 +41,11 @@ public:
 	//void SpawnVehicle(TSubclassOf<AVehicle> VehicleToSpawn);
 
 	UFUNCTION()
-	void VehicleOfferClicked(TSubclassOf<AVehicle> Vehicle);
+	void OnVehicleOfferClicked(FVehicleOffer VehicleOfferData);
+
+	void OnBuyButtonPressed();
+
+
 
 protected:
 	virtual void BeginPlay() override;
@@ -54,11 +58,17 @@ private:
 	//UPROPERTY(EditAnywhere)
 	//TArray<TSubclassOf<AVehicle>> AvailableVehicles;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(EditAnywhere)
 	TArray<FVehicleOffer> VehicleCatalog;
 
 	UPROPERTY(EditAnywhere)
 	AVehicle* CurrentVehicle;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AVehicle> CurrentVehicleClass;
+
+	UPROPERTY()
+	int32 CurrentVehiclePrice;
 
 	//UPROPERTY(VisibleAnywhere)
 	//UStaticMeshComponent* MeshToAttach;

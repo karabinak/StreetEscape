@@ -58,6 +58,8 @@ private:
 
 public:	
 
+	FORCEINLINE UStaticMeshComponent* GetVehicleStand() { return VehicleStand; }
+
 	
 	
 

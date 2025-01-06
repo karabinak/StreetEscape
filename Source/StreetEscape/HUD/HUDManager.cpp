@@ -4,7 +4,6 @@
 #include "HUDManager.h"
 #include "Blueprint/UserWidget.h"
 
-#include "MenuWidget.h"
 #include "ShopWidget.h"
 #include "OfferWidget.h"
 

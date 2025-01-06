@@ -2,20 +2,45 @@
 
 
 #include "ShopWidget.h"
-#include "OfferWidget.h"
-#include "StreetEscape/Vehicle/Vehicle.h"
 #include "Components/ScrollBox.h"
 #include "Components/CanvasPanel.h"
 #include "Components/ScrollBoxSlot.h"
+#include "Components/Button.h"
+#include "Components/TextBlock.h"
+
+#include "OfferWidget.h"
+#include "StreetEscape/Vehicle/Vehicle.h"
+#include "StreetEscape/Components/Shop.h"
 //#include "StreetEscape/Controller/VehicleController.h"
 //#include "StreetEscape/Components/Inventory.h"
 //#include "Kismet/GameplayStatics.h"
-//#include "StreetEscape/Components/ShopVehicle.h"
 
 
 void UShopWidget::NativeConstruct()
 {
-	
+	PlayButton->OnClicked.AddDynamic(this, &UShopWidget::OnPlayButtonClicked);
+	CustomizationButton->OnClicked.AddDynamic(this, &UShopWidget::OnCustomizationButtonClicled);
+	BuyButton->OnClicked.AddDynamic(this, &UShopWidget::OnBuyButtonClicked);
+}
+
+void UShopWidget::OnPlayButtonClicked()
+{
+
+}
+
+void UShopWidget::OnCustomizationButtonClicled()
+{
+
+}
+
+void UShopWidget::OnBuyButtonClicked()
+{
+	OwnerClass->OnBuyButtonPressed();
+}
+
+void UShopWidget::UpdatePriceText(FText Price)
+{
+	VehiclePriceText->SetText(Price);
 }
 
 void UShopWidget::AddOfferWidget(UOfferWidget* OfferToAdd)

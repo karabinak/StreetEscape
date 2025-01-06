@@ -3,6 +3,8 @@
 
 #include "Inventory.h"
 
+#include "StreetEscape/Vehicle/Vehicle.h"
+
 UInventory::UInventory()
 {
 
@@ -31,5 +33,11 @@ void UInventory::AddToInventory(TSubclassOf<AVehicle> InVehicle)
 {
 	InventorySlots.Add(InVehicle);
 	UE_LOG(LogTemp, Warning, TEXT("Vehicle Added"));
+}
+
+bool UInventory::IsInInventory(TSubclassOf<AVehicle> InVehicle)
+{
+	if (InventorySlots.Contains(InVehicle)) return true;
+	return false;
 }
 

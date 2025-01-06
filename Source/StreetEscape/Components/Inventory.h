@@ -21,6 +21,8 @@ public:
 
 	void AddToInventory(TSubclassOf<AVehicle> InVehicle);
 
+	bool IsInInventory(TSubclassOf<AVehicle> InVehicle);
+
 protected:
 	virtual void BeginPlay() override;
 

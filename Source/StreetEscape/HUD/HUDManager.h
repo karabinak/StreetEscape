@@ -63,6 +63,7 @@ public:
 
 	//FORCEINLINE void SetHideout(AHideout* InHideout) { Hideout = InHideout; }
 	FORCEINLINE void SetShopWidget(UShopWidget* InShopWidget) { ShopWidget = InShopWidget; }
+	FORCEINLINE UShopWidget* GetShopWidget() { return ShopWidget; }
 	FORCEINLINE void AddVehicleOfferWidget(UOfferWidget* InVehicleOfferWidget) { VehicleOfferWidgets.Add(InVehicleOfferWidget); }
 
 
