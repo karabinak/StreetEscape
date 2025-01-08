@@ -11,10 +11,18 @@ AVehicle::AVehicle()
 {
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComponent"));
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
+	WheelFR = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WheelFR"));
+	WheelFL = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WheelFL"));
+	WheelRR = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WheelRR"));
+	WheelRL = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WheelRL"));
 
 	SetRootComponent(GetMesh());
 	SpringArm->SetupAttachment(GetRootComponent());
 	Camera->SetupAttachment(SpringArm);
+	WheelFR->SetupAttachment(GetMesh(), FName(TEXT("FR")));
+	WheelFL->SetupAttachment(GetMesh(), FName(TEXT("FL")));
+	WheelRR->SetupAttachment(GetMesh(), FName(TEXT("RR")));
+	WheelRL->SetupAttachment(GetMesh(), FName(TEXT("RL")));
 
 
 	UChaosWheeledVehicleMovementComponent* ChaosVehicleMovementComponent = Cast<UChaosWheeledVehicleMovementComponent>(GetVehicleMovement());
@@ -31,6 +39,27 @@ AVehicle::AVehicle()
    
 	ChaosVehicleMovementComponent->Mass = 1000.f;
 	ChaosVehicleMovementComponent->DragCoefficient = 0.3f;
+
+
+}
+
+void AVehicle::BeginPlay()
+{
+	Super::BeginPlay();
+
+	/* Load From VehicleDataStruct */
+	if (VehicleData.WheelFR.TempWheel && VehicleData.WheelFL.TempWheel && VehicleData.WheelRR.TempWheel && VehicleData.WheelRL.TempWheel)
+	{
+		WheelFR->SetStaticMesh(VehicleData.WheelFR.TempWheel);
+		WheelFL->SetStaticMesh(VehicleData.WheelFL.TempWheel);
+		WheelRR->SetStaticMesh(VehicleData.WheelRR.TempWheel);
+		WheelRL->SetStaticMesh(VehicleData.WheelRL.TempWheel);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("TempWheels not valid"));
+	}
+
 }
 
 void AVehicle::Steer(float AxisValue)
