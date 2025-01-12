@@ -22,6 +22,11 @@ void AGenerator::BeginPlay()
 	CreateRoad();
 	CreateRoad();
 	CreateRoad();
+	CreateRoad();
+	CreateRoad();
+	CreateRoad();
+	CreateRoad();
+	CreateRoad();
 }
 
 void AGenerator::CreateRoad()

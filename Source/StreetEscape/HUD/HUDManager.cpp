@@ -3,6 +3,7 @@
 
 #include "HUDManager.h"
 #include "Blueprint/UserWidget.h"
+#include "Blueprint/WidgetLayoutLibrary.h"
 
 #include "ShopWidget.h"
 #include "OfferWidget.h"
@@ -34,7 +35,7 @@ void AHUDManager::ChangeWidgetState(EWidgetState InWidgetState)
 		break;
 
 	case EWidgetState::EWS_Gameplay:
-
+		UWidgetLayoutLibrary::RemoveAllWidgets(GetWorld());
 
 
 		break;

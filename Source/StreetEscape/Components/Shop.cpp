@@ -126,3 +126,20 @@ void UShop::OnBuyButtonPressed()
         }
     }
 }
+
+void UShop::StartLevel()
+{
+    AVehicleController* PlayerController = Cast<AVehicleController>(UGameplayStatics::GetPlayerController(this, 0));
+    AHUDManager* HUDManager = Cast<AHUDManager>(PlayerController->GetHUD());
+    if (CurrentVehicle && PlayerController)
+	{
+        CurrentVehicle->GetMesh()->SetSimulatePhysics(true);
+        CurrentVehicle->DetachFromActor(FDetachmentTransformRules::KeepRelativeTransform);
+		FViewTargetTransitionParams ViewTargetTransitionParams;
+		ViewTargetTransitionParams.BlendTime = 1.5f;
+        PlayerController->SetViewTarget(CurrentVehicle, ViewTargetTransitionParams);
+        PlayerController->SetShowMouseCursor(false);
+        PlayerController->Possess(CurrentVehicle);
+        HUDManager->ChangeWidgetState(EWidgetState::EWS_Gameplay);
+	}
+}

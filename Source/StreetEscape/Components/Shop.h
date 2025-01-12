@@ -45,6 +45,9 @@ public:
 
 	void OnBuyButtonPressed();
 
+	// TEMPORAL LEVEL START
+	void StartLevel();
+
 
 
 protected:

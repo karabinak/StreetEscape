@@ -28,7 +28,7 @@ void UShopWidget::NativeConstruct()
 
 void UShopWidget::OnPlayButtonClicked()
 {
-
+	OwnerClass->StartLevel();
 }
 
 void UShopWidget::OnCustomizationButtonClicked()
