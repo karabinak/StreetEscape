@@ -27,24 +27,21 @@ void AGenerator::BeginPlay()
 	CreateRoad();
 	CreateRoad();
 	CreateRoad();
+	CreateRoad();
+	CreateRoad();
 }
 
 void AGenerator::CreateRoad()
 {
-	FActorSpawnParameters SpawnParameters;
-	SpawnParameters.Owner = this;
-	TSubclassOf<ARoad> RoadClass;
-	ARoad* Road;
-
-	SelectRoad(RoadClass);
-	SpawnRoad(RoadClass, SpawnParameters, Road);
+	SelectRoad();
+	SpawnRoad();
 	DestroyLastRoad();
 
-	SetLocationAndRotation(Road);
+	SetLocationAndRotation();
 	RandomActivePattern();
 }
 
-void AGenerator::SelectRoad(TSubclassOf<ARoad>& RoadClass)
+void AGenerator::SelectRoad()
 {
 	if (bIsPatternActive)
 	{
@@ -69,10 +66,20 @@ void AGenerator::SelectRoad(TSubclassOf<ARoad>& RoadClass)
 	}
 }
 
-void AGenerator::SpawnRoad(TSubclassOf<ARoad>& RoadClass, FActorSpawnParameters& SpawnParameters, ARoad*& Road)
+void AGenerator::SpawnRoad(bool NormalRoad)
 {
-	Road = GetWorld()->SpawnActor<ARoad>(RoadClass, SpawnPoint, SpawnRotation, SpawnParameters);
-	SpawnedRoads.Add(Road);
+	FActorSpawnParameters SpawnParameters;
+	SpawnParameters.Owner = this;
+	if (NormalRoad)
+	{
+		Road = GetWorld()->SpawnActor<ARoad>(RoadClass, SpawnPoint, SpawnRotation, SpawnParameters);
+		SpawnedRoads.Add(Road);
+	}
+	else
+	{
+		ARoad* TempEndRoad = GetWorld()->SpawnActor<ARoad>(ClassRoadEnd, SpawnPoint, SpawnRotation, SpawnParameters);
+		SpawnedRoads.Add(TempEndRoad);
+	}
 }
 
 void AGenerator::DestroyLastRoad()
@@ -84,10 +91,59 @@ void AGenerator::DestroyLastRoad()
 	}
 }
 
-void AGenerator::SetLocationAndRotation(ARoad* Road)
+void AGenerator::SetLocationAndRotation()
 {
 	TArray<FName> Sockets = Road->GetRoadMesh()->GetAllSocketNames();
-	int32 RandomSocket = FMath::RandRange(0, Sockets.Num() - 1);
+
+	int32 RandomSocket;
+	if (Sockets.Num() > 1)
+	{
+		if (LastRoadLeft)
+		{
+			RandomSocket = FMath::RandRange(1, Sockets.Num() - 1);
+		}
+		if (LastRoadRight)
+		{
+			RandomSocket = FMath::RandRange(0, Sockets.Num() - 2);
+		}
+		if (LastRoadRight == false && LastRoadLeft == false)
+		{
+			RandomSocket = FMath::RandRange(0, Sockets.Num() - 1);
+		}
+
+		if (RandomSocket == 0)
+		{
+			LastRoadRight = false;
+			LastRoadLeft = true;
+		}
+
+
+		if (RandomSocket == 2)
+		{
+			LastRoadLeft = false;
+			LastRoadRight = true;
+		}
+	}
+	else
+	{
+		RandomSocket = FMath::RandRange(0, Sockets.Num() - 1);
+	}
+
+
+	if (Sockets.Num() > 1)
+	{
+		int32 RoadEndingsToSpawn = Sockets.Num() - 1;
+
+		for (int32 i = 0; i <= RoadEndingsToSpawn; i++)
+		{
+			if (Sockets[i] == Sockets[RandomSocket]) continue;
+
+			SpawnPoint = Road->GetRoadMesh()->GetSocketLocation(Sockets[i]);
+			SpawnRotation = Road->GetRoadMesh()->GetSocketRotation(Sockets[i]);
+			FActorSpawnParameters SpawnParameters;
+			SpawnRoad(false);
+		}
+	}
 
 	SpawnPoint = Road->GetRoadMesh()->GetSocketLocation(Sockets[RandomSocket]);
 	SpawnRotation = Road->GetRoadMesh()->GetSocketRotation(Sockets[RandomSocket]);

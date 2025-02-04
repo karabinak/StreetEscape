@@ -29,19 +29,30 @@ protected:
 	virtual void BeginPlay() override;
 
 
-	void SelectRoad(TSubclassOf<ARoad>& RoadClass);
-	void SpawnRoad(TSubclassOf<ARoad>& RoadClass, FActorSpawnParameters& SpawnParameters, ARoad*& Road);
+	void SelectRoad();
+	void SpawnRoad(bool NormalRoad = true);
 	void DestroyLastRoad();
-	void SetLocationAndRotation(ARoad* Road);
+	void SetLocationAndRotation();
 	void RandomActivePattern();
 
 private:
+	bool LastRoadRight = false;
+	bool LastRoadLeft = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Road", meta = (AllowPrivateAccess = "true"))
 	TArray<TSubclassOf<ARoad>> AvailableRoads;
 
 	UPROPERTY(VisibleAnywhere, Category = "Road", meta = (AllowPrivateAccess = "true"))
 	TArray<ARoad*> SpawnedRoads;
+
+	UPROPERTY(VisibleAnywhere, Category = "Road", meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<ARoad> RoadClass;
+
+	UPROPERTY(VisibleAnywhere, Category = "Road", meta = (AllowPrivateAccess = "true"))
+	ARoad* Road;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Road", meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<ARoad> ClassRoadEnd;
 
 	UPROPERTY(EditAnywhere, Category = "Road", meta = (AllowPrivateAccess = "true"))
 	int32 MaxRoadSpawn = 10;

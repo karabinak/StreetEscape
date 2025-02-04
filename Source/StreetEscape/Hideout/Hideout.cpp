@@ -46,32 +46,4 @@ void AHideout::BeginPlay()
 		PC->SetViewTarget(this);
 	}
 
-	//ShopVehicle->SetMeshToAttach(VehicleStand);
 }
-
-//void AHideout::InitializeWidgets()
-//{
-//	ShopVehicle->Initialize(HUD);
-//	CustomizationVehicle->Initialize();
-//}
-
-//void AHideout::Tick(float DeltaTime)
-//{
-//	Super::Tick(DeltaTime);
-//
-//}
-
-//void AHideout::SetLevel()
-//{
-//	if (ShopVehicle->GetCurrentVehicle() && PC)
-//	{
-//		ShopVehicle->GetCurrentVehicle()->GetMesh()->SetSimulatePhysics(true);
-//		ShopVehicle->GetCurrentVehicle()->DetachFromActor(FDetachmentTransformRules::KeepRelativeTransform);
-//		FViewTargetTransitionParams ViewTargetTransitionParams;
-//		ViewTargetTransitionParams.BlendTime = 1.5f;
-//		PC->SetViewTarget(ShopVehicle->GetCurrentVehicle(), ViewTargetTransitionParams);
-//		PC->SetShowMouseCursor(false);
-//		PC->Possess(ShopVehicle->GetCurrentVehicle());
-//	}
-//}
-

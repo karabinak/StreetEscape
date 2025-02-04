@@ -38,19 +38,7 @@ private:
 	UStaticMeshComponent* RoadMesh;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties", meta = (AllowPrivateAccess = "true"))
-	int32 BuildingsToGenerate = 2;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties", meta = (AllowPrivateAccess = "true"))
-	FVector StartPos = FVector(0.f, 1200.f, 0.f);
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties", meta = (AllowPrivateAccess = "true"))
-	float Distance = 500.f;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties", meta = (AllowPrivateAccess = "true"))
 	ERoadType RoadType = ERoadType::ERT_Straight;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Generator", meta = (AllowPrivateAccess = "true"))
-	TArray<UStaticMesh*> BuildingsMeshes;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties", meta = (AllowPrivateAccess = "true"))
 	UBoxComponent* SpawnTrigger;
