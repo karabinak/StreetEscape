@@ -59,7 +59,22 @@ void AVehicle::BeginPlay()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("TempWheels not valid"));
 	}
+}
 
+void AVehicle::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	if (CalculateDistance)
+	{
+		const FVector CurrentLocation = GetActorLocation();
+		double DistanceOneSec = FVector::Dist(CurrentLocation, LastFrameLocation) * DeltaTime;
+
+		Distance += DistanceOneSec / 100;
+		LastFrameLocation = CurrentLocation;
+
+		GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Emerald, FString::Printf(TEXT("%f m"), Distance));
+	}
 }
 
 void AVehicle::Steer(float AxisValue)

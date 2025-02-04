@@ -141,6 +141,8 @@ void UShop::StartLevel()
         PlayerController->SetShowMouseCursor(false);
         PlayerController->Possess(CurrentVehicle);
         HUDManager->ChangeWidgetState(EWidgetState::EWS_Gameplay);
+        
+        CurrentVehicle->SetCalculateDistance(true);
 
         FLatentActionInfo LatentInfo;
         UGameplayStatics::LoadStreamLevel(this, FName("City"), true, true, LatentInfo);

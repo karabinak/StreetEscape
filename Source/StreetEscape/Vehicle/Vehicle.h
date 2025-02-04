@@ -29,6 +29,8 @@ protected:
 	UFUNCTION()
 	virtual void BeginPlay() override;
 
+	virtual void Tick(float DeltaTime) override;
+
 private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
@@ -51,6 +53,16 @@ private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Data", meta = (AllowPrivateAccess = "true"))
 	FVehicleData VehicleData;
 
+	UPROPERTY(VisibleAnywhere, Category = "Distance")
+	float Distance = 0.f;
+
+	UPROPERTY(VisibleAnywhere, Category = "Distance")
+	FVector LastFrameLocation = FVector(0.f, 0.f, 0.f);
+
+	UPROPERTY(VisibleAnywhere, Category = "Distance")
+	bool CalculateDistance = false;
+
 public:
 
+	void SetCalculateDistance(bool InCalculateDistance) { CalculateDistance = InCalculateDistance; }
 };
