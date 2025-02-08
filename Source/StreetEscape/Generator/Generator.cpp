@@ -95,7 +95,7 @@ void AGenerator::SetLocationAndRotation()
 {
 	TArray<FName> Sockets = Road->GetRoadMesh()->GetAllSocketNames();
 
-	int32 RandomSocket;
+	int32 RandomSocket = 0;
 	if (Sockets.Num() > 1)
 	{
 		if (LastRoadLeft)

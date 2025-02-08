@@ -12,7 +12,8 @@
 				"ChaosVehicles",
 				"Engine",
 				"CoreUObject",
-				"UMG"
+				"UMG",
+				"AIModule"
 			]
 		}
 	],
